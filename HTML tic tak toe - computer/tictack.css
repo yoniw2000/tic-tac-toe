@@ -1,0 +1,26 @@
+﻿h1 {
+    text-align: center;
+}
+h1:hover {
+    color:#b01616;
+}
+table {
+    text-align: center;
+    margin-left:515px;
+}
+td {
+    width: 100px;
+    height: 100px;   
+    font-size: 50px;   
+    text-align: center;
+}
+.vert {
+    border-left: 2px solid blue;
+    border-right: 2px solid blue;
+}
+
+.hori {
+    border-top: 2px solid blue;
+    border-bottom: 2px solid blue;
+}
+

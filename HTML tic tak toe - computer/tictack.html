@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+            <meta charset="UTF-8">
+            <title>Tic Tak Toe</title>
+            <link rel="stylesheet" type="text/css" href="tictack.css">
+
+    </head>
+
+    <body onload="start()">
+
+        <script>
+            var turns = ["X", "Y"];
+            turn = turns[Math.floor(Math.random() * turns.length)];
+            turns = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            var finish = 0;
+            var block_place
+            var count_all = 0
+
+            function start()
+            {               
+                if (turn == "Y") {
+ 
+                    computer_turn()
+                }                  
+            }
+
+            function draw(x)
+            {
+                finish = 0;
+                if (turns[x] != 0) {
+                    alert("בגלל שניסיתה לרמות תורך יעלם")
+                }
+                if (finish == 0 && turns[x]==0) {
+                    var sqr = document.getElementById(x).innerHTML = "X";
+                    turns[x] = "X";
+                    count_all += 1;
+                }              
+                nizahon("X");
+                if (count_all != 9) {
+                    alert("cp turn")
+                    computer_turn()
+                }
+                
+            }
+            function computer_turn()
+            {               
+                if (finish == 0) { is_trio(0, 1, 2, "Y") }               
+                if (finish == 0) { is_trio(3, 4, 5, "Y") } 
+                if (finish == 0) { is_trio(6, 7, 8, "Y") } 
+                if (finish == 0) { is_trio(0, 3, 6, "Y") } 
+                if (finish == 0) { is_trio(1, 4, 7, "Y") } 
+                if (finish == 0) { is_trio(2, 5, 8, "Y") } 
+                if (finish == 0) { is_trio(0, 4, 8, "Y") } 
+                if (finish == 0) { is_trio(2, 4, 6, "Y") } 
+                if (finish == 0) { is_trio(0, 2, 8, "Y") } 
+                if (finish == 0) { is_trio(0, 6, 8, "Y") } 
+                if (finish == 0) { is_trio(0, 2, 6, "Y") } 
+                if (finish == 0) { is_trio(8, 6, 2, "Y") } 
+                if (finish == 0) { is_trio(2, 0, 8, "Y") } 
+
+                if (trio_blok(0, 1, 2, "X") == true) { MAKE_Y(block_place) } 
+                if (trio_blok(3, 4, 5, "X") == true) { MAKE_Y(block_place) } 
+                if (trio_blok(6, 7, 8, "X") == true) { MAKE_Y(block_place) } 
+                if (trio_blok(1, 4, 7, "X") == true) { MAKE_Y(block_place) } 
+                if (trio_blok(0, 3, 6, "X") == true) { MAKE_Y(block_place) } 
+                if (trio_blok(2, 5, 8, "X") == true) { MAKE_Y(block_place) } 
+                if (trio_blok(2, 4, 6, "X") == true) { MAKE_Y(block_place) } 
+                if (trio_blok(0, 4, 8, "X") == true) { MAKE_Y(block_place) } 
+
+
+                if (finish == 0 && turns[4] == 0) {
+                    MAKE_Y(4)
+                }
+                
+                while (finish == 0) {
+                    var rnd = Math.floor(Math.random() * 10)
+                    if (turns[rnd] == 0) {
+                        if (turns[rnd] != "X" && turns[rnd] != "Y") {
+                            MAKE_Y(rnd)
+                            finish = 1;
+                        }
+
+                    }
+                }
+                
+            }
+            
+            function MAKE_Y(c1)
+            {
+                if (finish==0) {
+                    //alert(c1)
+                    finish = 1;
+                    count_all += 1;
+                    turns[c1] = "Y"
+                    var sqr = document.getElementById(c1).innerHTML = "Y";
+                    nizahon("Y");
+                        //alert(turns)
+                }
+                
+            }
+            function MAKE_Y3(c1,c2,c3) {
+                if (finish == 0) {
+                    //alert(c1, c2, c3)
+                    finish = 1;
+                    count_all += 1;
+                    turns[c1] = "Y"
+                    turns[c2] = "Y"
+                    turns[c3] = "Y"
+                     document.getElementById(c1).innerHTML = "Y";
+                    document.getElementById(c2).innerHTML = "Y";
+                    document.getElementById(c3).innerHTML = "Y";
+                    nizahon("Y");
+                    //alert(turns)
+                }
+
+            }
+            
+            
+            function is_trio(c1, c2, c3, new_color) {
+                if (turns[c1] == new_color && turns[c2] == new_color && turns[c3] == 0) {
+                    MAKE_Y3(c1, c2, c3)                   
+                }  
+                if (turns[c1] == 0 && turns[c2] == new_color && turns[c3] == new_color) {
+                    MAKE_Y3(c1, c2, c3)
+                }
+                if (turns[c1] == new_color && turns[c2] == 0 && turns[c3] == new_color) {
+                    MAKE_Y3(c1, c2, c3)
+                }
+            }
+
+
+            function trio_blok(c1, c2, c3, new_color) {
+                
+                if (turns[c1] == new_color && turns[c2] == new_color && turns[c3] == 0) {
+                    block_place = c3
+                    return true
+                }               
+                if (turns[c1] == 0 && turns[c2] == new_color && turns[c3] == new_color) {
+                    block_place = c1
+                    return true
+                }
+                if (turns[c1] == new_color && turns[c2] == 0 && turns[c3] == new_color) {
+                    block_place = c2
+                    return true
+                }
+                return false
+            }
+
+            function is_ABSULOTE_trio(c1, c2, c3, mycolor)
+            {
+                return (turns[c1] == mycolor && turns[c2] == mycolor&& turns[c3] == mycolor )
+            }
+
+            function win(c1, c2, c3, my_color) {
+                if (my_color == "X") {
+                    alert("x won , press F5 to restart")
+                }
+                if (my_color == "Y") {
+                    alert("y won , press F5 to restart")
+                }
+                turns = ["X", "X", "X", "X", "X", "X", "X", "X", "X"];
+                color_win(c1, c2, c3)
+            }
+
+            function color_win(c1, c2, c3) {
+                document.getElementById(c1 ).style.color = "blue"
+                document.getElementById(c2 ).style.color = "blue"
+                document.getElementById(c3 ).style.color = "blue"
+            }
+
+            function nizahon(c1) {
+                if (is_ABSULOTE_trio(0, 1, 2, c1)) { win(0, 1, 2, c1) }
+                if (is_ABSULOTE_trio(3, 4, 5, c1)) { win(3, 4, 5, c1) }
+                if (is_ABSULOTE_trio(6, 7, 8, c1)) { win(6, 7, 8, c1) }
+                if (is_ABSULOTE_trio(0, 3, 6, c1)) { win(0, 3, 6, c1) }
+                if (is_ABSULOTE_trio(1, 4, 7, c1)) { win(1, 4, 7, c1) }
+                if (is_ABSULOTE_trio(2, 5, 8, c1)) { win(2, 5, 8, c1) }
+                if (is_ABSULOTE_trio(0, 4, 8, c1)) { win(0, 4, 8,  c1) }
+                if (is_ABSULOTE_trio(2, 4, 6, c1)) { win(2, 4, 6, c1) }
+            
+            }
+        </script>
+
+        <h1>Tic Tac Toe</h1>
+        <table>
+            <tr>
+                <td id="0" onclick="draw(0)">   </td>
+                <td id="1" onclick="draw(1)" class="vert"></td>
+                <td id="2" onclick="draw(2)">   </td>
+            </tr>
+            <tr>
+                <td id="3" class="hori" onclick="draw(3)"></td>
+                <td id="4" class="vert hori" onclick="draw(4)"></td>
+                <td id="5" class="hori" onclick="draw(5)"></td>
+            </tr>
+            <tr>
+                <td id="6" onclick="draw(6)"></td>
+                <td id="7" class="vert" onclick="draw(7)"></td>
+                <td id="8" onclick="draw(8)"></td>
+            </tr>
+        </table>
+
+
+
+    </body>
+</html>
+
